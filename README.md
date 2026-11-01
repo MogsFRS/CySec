@@ -5,9 +5,13 @@ coisas de cybersegurança
  msfconsole: chama o metasploit framework, com vários exploits disponíveis
  
  msfvenom: payload generator, para fazer seus próprios virus
+ 
  -a: arquitetura do alvo pode ser x32 x64 x84 
+ 
  --platform: passa o sistema operacional
+ 
  -p: set do payload, voce seleciona o payload 
+ 
  -f: voce define o tipo de executável que ele vai ser 
  
 
