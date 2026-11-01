@@ -5,7 +5,22 @@ coisas de cybersegurança
  msfconsole: chama o metasploit framework, com vários exploits disponíveis
  
  use  exploit/multi/handler: cria um listener para qualquer sistema operacional a a partir do meterpreter
+
+use exploit/windows/local/bypassuac: exploit para escalação de privilégios no windows
+
+ meterpreter:
+
+ background: deixa a sessão atual em back ground para poder usar o msfconsole
  
+ sessions: mostra as sessões ativas
+
+ sessions -i <id>: se conecta a sessão selecionada
+
+ ps: mostra processos rodando
+ 
+ migrate <id> migra o processo para um outra a escolha 
+
+
  
  msfvenom: payload generator, para fazer seus próprios virus
  
