@@ -1,110 +1,182 @@
-# CySec
-coisas de cybersegurança
 
-# Metasploit framework
- msfconsole: chama o metasploit framework, com vários exploits disponíveis
- 
- use  exploit/multi/handler: cria um listener para qualquer sistema operacional a a partir do meterpreter
+ # 🛡️ CySec — Cybersecurity Notes
 
-use exploit/windows/local/bypassuac: exploit para escalação de privilégios no windows
+Anotações, comandos e referências sobre ferramentas e técnicas de cibersegurança.
 
-scanner/http/tomcat_mgr_login: brute force de senhas apache tomcat
+---
 
-sessions -k 1: encerra o processo de id 1
+# 1. Metasploit Framework
 
-exploit -j: roda de fundo
+O **Metasploit Framework** é uma plataforma utilizada para testes de invasão (Pentest), exploração de vulnerabilidades e validação de segurança.
 
--q: remove o banner inicial.
+## 1.1. MSFConsole
 
--r: informa qual arquivo RC será executado.
+O `msfconsole` é a interface principal do Metasploit, permitindo acessar módulos, exploits, payloads e sessões.
 
-exitonsession = false: permite receber várias conexões
+| Comando | Função |
+|---|---|
+| `msfconsole` | Inicia o Metasploit Framework. |
+| `-q` | Inicia sem exibir o banner. |
+| `-r arquivo.rc` | Executa os comandos de um arquivo RC. |
+| `use <módulo>` | Seleciona um módulo. |
+| `exploit -j` | Executa um exploit em segundo plano. |
+| `sessions` | Lista as sessões ativas. |
+| `sessions -k 1` | Encerra a sessão de ID 1. |
 
- meterpreter:
+### Módulos importantes
 
- background: deixa a sessão atual em back ground para poder usar o msfconsole
- 
- sessions: mostra as sessões ativas
+| Módulo | Descrição |
+|---|---|
+| `exploit/multi/handler` | Handler para receber conexões de payloads compatíveis. |
+| `exploit/windows/local/bypassuac` | Módulo para contornar o UAC do Windows em determinadas condições. |
+| `auxiliary/scanner/http/tomcat_mgr_login` | Verifica credenciais de acesso ao Tomcat Manager. |
 
- sessions -i <id>: se conecta a sessão selecionada
+### Configurações
 
- ps: mostra processos rodando
- 
- migrate <id> migra o processo para um outra a escolha 
+| Opção | Função |
+|---|---|
+| `ExitOnSession false` | Mantém o handler ativo após receber uma sessão, permitindo receber outras conexões. |
 
+---
 
- 
- msfvenom: payload generator, para fazer seus próprios virus
- 
- -a: arquitetura do alvo pode ser x32 x64 x84 
- 
- --platform: passa o sistema operacional
- 
- -p: set do payload, voce seleciona o payload 
- 
- -f: voce define o tipo de executável que ele vai ser 
+## 1.2. Meterpreter
 
- -o: define o nome com a extenção adequada
+O Meterpreter é um payload avançado do Metasploit que oferece interação com o sistema comprometido durante um teste autorizado.
 
- após setar o payload por exemplo de um trojar o /multi/handler do msfconsole pode criar um programa que vai ouvir as conexões lá 
- será necessário setar o payload para o mesmo que foi usado anteriormente
- 
+### Gerenciamento de sessões
 
- # técnicas de evasão de firewall via nmap
- 
--f	Fragmenta os pacotes IP.
+| Comando | Função |
+|---|---|
+| `background` | Coloca a sessão atual em segundo plano e retorna ao MSFConsole. |
+| `sessions` | Mostra as sessões ativas. |
+| `sessions -i <ID>` | Interage com uma sessão específica. |
+| `sessions -k <ID>` | Encerra uma sessão específica. |
 
---mtu <valor>	Define o tamanho dos fragmentos IP.
+### Gerenciamento de processos
 
--D<decoy1,decoy2>	Utiliza IPs falsos como fontes aparentes do scan.
+| Comando | Função |
+|---|---|
+| `ps` | Lista os processos em execução. |
+| `migrate <PID>` | Migra a sessão para outro processo, quando permitido. |
 
--S<IP>	Define manualmente o IP de origem.
+---
 
--g <porta>	Define a porta de origem dos pacotes.
+## 1.3. MSFVenom
 
---source-port <porta>	Define a porta de origem (alternativa a -g).
+O `msfvenom` é uma ferramenta para geração de payloads do Metasploit, permitindo definir arquitetura, sistema operacional, tipo de payload e formato de saída.
 
---data-length <n>	Adiciona dados aleatórios aos pacotes.
+### Parâmetros principais
 
---badsum	Envia pacotes com checksum TCP/UDP inválido.
+| Parâmetro | Função |
+|---|---|
+| `-a` | Define a arquitetura do alvo, como `x86` ou `x64`. |
+| `--platform` | Define a plataforma do sistema operacional. |
+| `-p` | Seleciona o payload. |
+| `-f` | Define o formato do arquivo gerado. |
+| `-o` | Define o nome e o caminho do arquivo de saída. |
 
--T0	Scan extremamente lento e sequencial.
+### Integração com MSFConsole
 
--T1	Scan lento, reduzindo a frequência das requisições.
+Para um teste de conexão reversa autorizado:
 
---top-ports <n>: analisa um numero pré-definido de portas
+1. Gere um payload com as configurações desejadas.
+2. Configure o `exploit/multi/handler` no MSFConsole.
+3. Utilize no handler as mesmas configurações de payload e conexão usadas na geração.
+4. Inicie o handler para aguardar a conexão.
 
+**Importante:** o payload e o handler precisam ter configurações compatíveis, incluindo tipo de payload, endereço e porta de conexão.
 
-2. Técnicas de descoberta e análise de filtragem
-Parâmetro	Função
+---
 
--Pn	Não realiza descoberta de hosts; considera o alvo ativo.
+# 2. Nmap — Análise de Firewall e Filtragem
 
--sA	TCP ACK Scan; ajuda a identificar como os filtros tratam pacotes.
+O Nmap é uma ferramenta de descoberta de hosts, identificação de portas abertas e análise de serviços de rede.
 
--sS	TCP SYN Scan.
+## 2.1. Técnicas de análise de tráfego e filtragem
 
--sN	TCP Null Scan.
+| Parâmetro | Função |
+|---|---|
+| `-f` | Fragmenta os pacotes IP. |
+| `--mtu` | Define o tamanho dos fragmentos IP. |
+| `-D` | Utiliza endereços decoy para identificar como os sistemas registram a origem do scan. |
+| `-S` | Define manualmente o endereço IP de origem. |
+| `-g` | Define a porta de origem dos pacotes. |
+| `--source-port` | Alternativa para definir a porta de origem. |
+| `--data-length` | Adiciona dados aleatórios aos pacotes. |
+| `--badsum` | Envia pacotes com checksum inválido. |
+| `-T0` | Define uma temporização extremamente lenta e sequencial. |
+| `-T1` | Define uma temporização lenta. |
+| `--top-ports` | Analisa um número predefinido de portas mais comuns. |
 
--sF	TCP FIN Scan.
+## 2.2. Descoberta de hosts e análise de portas
 
--sX	TCP Xmas Scan.
+| Parâmetro | Função |
+|---|---|
+| `-Pn` | Ignora a descoberta de hosts e considera o alvo ativo. |
+| `-sA` | TCP ACK Scan: ajuda a identificar o comportamento de filtros de pacotes. |
+| `-sS` | TCP SYN Scan. |
+| `-sN` | TCP Null Scan. |
+| `-sF` | TCP FIN Scan. |
+| `-sX` | TCP Xmas Scan. |
+| `-sW` | TCP Window Scan. |
+| `-sU` | UDP Scan. |
+| `-p-` | Analisa todas as portas TCP. |
+| `--reason` | Mostra o motivo pelo qual uma porta recebeu determinado estado. |
 
--sW	TCP Window Scan.
+---
 
--sU	UDP Scan.
+# 3. SMB — smbclient
 
--p-	Examina todas as portas TCP.
+O SMB (Server Message Block) é um protocolo utilizado para compartilhamento de arquivos, diretórios e recursos em redes.
 
---reason	Mostra o motivo pelo qual uma porta foi classificada.
+### Portas comuns
 
-# comandos do smbclient:
+| Porta | Serviço |
+|---|---|
+| `445/TCP` | SMB diretamente sobre TCP. |
+| `139/TCP` | SMB sobre NetBIOS. |
 
-smb costuma rodar na 445 ou 139
+## 3.1. Comandos do smbclient
 
-smbclient -L <ip> faz login no smb dessa ip
+| Comando | Função |
+|---|---|
+| `smbclient -L //<IP>` | Lista os compartilhamentos disponíveis no servidor. |
+| `smbclient //<IP>/<COMPARTILHAMENTO>` | Conecta a um compartilhamento SMB. |
+| `smbclient //<IP>/<COMPARTILHAMENTO> -U <USUARIO>` | Conecta utilizando um usuário específico. |
 
-smbclient //<ip>/<nome do arquivo> entra no arquivo listado
+### Exemplos de utilização
 
-smbclient //<ip>/<nome arquivo> -U <nome do user> entra no arquivo como <nome do user>
+**Listar compartilhamentos:**
 
+```bash
+smbclient -L //192.168.1.100
+```
+
+**Acessar um compartilhamento:**
+
+```bash
+smbclient //192.168.1.100/shared
+```
+
+**Acessar utilizando um usuário:**
+
+```bash
+smbclient //192.168.1.100/shared -U usuario
+```
+
+---
+
+# 4. Referência rápida
+
+| Ferramenta | Finalidade |
+|---|---|
+| Metasploit | Exploração de vulnerabilidades e testes de segurança. |
+| MSFConsole | Interface de gerenciamento do Metasploit. |
+| Meterpreter | Ambiente de interação com sessões de payload. |
+| MSFVenom | Geração de payloads. |
+| Nmap | Descoberta e análise de redes e serviços. |
+| smbclient | Acesso e gerenciamento de compartilhamentos SMB. |
+
+---
+
+*README de estudos — Cybersecurity / Pentest.*
