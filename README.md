@@ -75,6 +75,22 @@ O `msfvenom` é uma ferramenta para geração de payloads do Metasploit, permiti
 | `-f` | Define o formato do arquivo gerado. |
 | `-o` | Define o nome e o caminho do arquivo de saída. |
 
+### Formatos de saída (`-f`)
+
+| Formato | Extensão | Sistema / finalidade |
+|---|---|---|
+| `elf` | `.elf` | Executável Linux. |
+| `elf-so` | `.so` | Biblioteca compartilhada Linux. |
+| `exe` | `.exe` | Executável Windows. |
+| `exe-only` | `.exe` | Executável Windows sem payload adicional. |
+| `exe-service` | `.exe` | Executável Windows em formato de serviço. |
+| `dll` | `.dll` | Biblioteca dinâmica Windows. |
+| `war` | `.war` | Pacote de aplicação Java Web. |
+| `asp` | `.asp` | Script ASP. |
+| `aspx` | `.aspx` | Script ASP.NET. |
+| `aspx-exe` | `.aspx` | Executável ASP.NET. |
+| `axis2` | `.jar` | Pacote para Apache Axis2. |
+
 ### Integração com MSFConsole
 
 Para um teste de conexão reversa autorizado:
