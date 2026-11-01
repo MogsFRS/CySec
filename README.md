@@ -10,6 +10,8 @@ use exploit/windows/local/bypassuac: exploit para escalação de privilégios no
 
 scanner/http/tomcat_mgr_login: brute force de senhas apache tomcat
 
+sessions -k 1: encerra o processo de id 1
+
 exploit -j: roda de fundo
 
 -q: remove o banner inicial.
