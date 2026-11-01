@@ -3,6 +3,7 @@ coisas de cybersegurança
 
 # Metasploit framework
  msfconsole: chama o metasploit framework, com vários exploits disponíveis
+
  
  msfvenom: payload generator, para fazer seus próprios virus
  
@@ -13,6 +14,8 @@ coisas de cybersegurança
  -p: set do payload, voce seleciona o payload 
  
  -f: voce define o tipo de executável que ele vai ser 
+
+ -o: define o nome com a extenção adequada
  
 
  # técnicas de evasão de firewall via nmap
