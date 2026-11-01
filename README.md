@@ -3,7 +3,9 @@ coisas de cybersegurança
 
 # Metasploit framework
  msfconsole: chama o metasploit framework, com vários exploits disponíveis
-
+ 
+ use  exploit/multi/handler: cria um listener para qualquer sistema operacional a a partir de um payload 
+ 
  
  msfvenom: payload generator, para fazer seus próprios virus
  
@@ -16,6 +18,9 @@ coisas de cybersegurança
  -f: voce define o tipo de executável que ele vai ser 
 
  -o: define o nome com a extenção adequada
+
+ após setar o payload por exemplo de um trojar o /multi/handler do msfconsole pode criar um programa que vai ouvir as conexões lá 
+ será necessário setar o payload para o mesmo que foi usado anteriormente
  
 
  # técnicas de evasão de firewall via nmap
