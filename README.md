@@ -8,6 +8,12 @@ coisas de cybersegurança
 
 use exploit/windows/local/bypassuac: exploit para escalação de privilégios no windows
 
+scanner/http/tomcat_mgr_login: brute force de senhas apache tomcat
+
+exploit -j: roda de fundo
+
+exitonsession = false: permite receber várias conexões
+
  meterpreter:
 
  background: deixa a sessão atual em back ground para poder usar o msfconsole
