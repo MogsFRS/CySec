@@ -12,6 +12,10 @@ scanner/http/tomcat_mgr_login: brute force de senhas apache tomcat
 
 exploit -j: roda de fundo
 
+-q: remove o banner inicial.
+
+-r: informa qual arquivo RC será executado.
+
 exitonsession = false: permite receber várias conexões
 
  meterpreter:
