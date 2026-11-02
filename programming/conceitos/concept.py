@@ -73,3 +73,16 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#classes
+#definição de uma classe restaurants
+class Restaurants:
+    def __init__(self, name, category): #usando o método init inicializa o construtor da classe
+      #self é o jeito de referenciar os parametros passados pelo construtor
+        self.name = name
+        self.category = category
+        self.activation = False
+
+sushi = Restaurants() #defini sushi a partir da classe restaurants 
+print (vars(sushi)) #mostra os valores em formato de dicionário
+print (dir(sushi)) #mostra os métodos da classe
