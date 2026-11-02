@@ -75,6 +75,17 @@ O `msfvenom` é uma ferramenta para geração de payloads do Metasploit, permiti
 | `-f` | Define o formato do arquivo gerado. |
 | `-o` | Define o nome e o caminho do arquivo de saída. |
 
+### Consulta de payloads e opções
+
+| Comando | Função |
+|---|---|
+| `msfvenom -l payloads` | Lista todos os payloads disponíveis. |
+| `msfvenom -l formats` | Lista todos os formatos de saída disponíveis. |
+| `msfvenom -l platforms` | Lista as plataformas disponíveis. |
+| `msfvenom -l archs` | Lista as arquiteturas disponíveis. |
+| `msfvenom --list-options -p <PAYLOAD>` | Mostra as opções de configuração de um payload específico. |
+| `msfvenom -p <PAYLOAD> --list-options` | Alternativa para listar as opções do payload. |
+
 ### Formatos de saída (`-f`)
 
 | Formato | Extensão | Sistema / finalidade |
