@@ -64,7 +64,7 @@ os.system('clear')
 
 #coloca a variavel restaurant name, como parte da lista restaurants
 restaurant_name.append(restaurant_name)
-
+  
 #estrutura main, definindo sua função e o que ela vai executar
 def main():
     title()
