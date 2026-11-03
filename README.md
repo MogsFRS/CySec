@@ -151,6 +151,36 @@ O Nmap é uma ferramenta de descoberta de hosts, identificação de portas abert
 | `--reason` | Mostra o motivo pelo qual uma porta recebeu determinado estado. |
 
 ---
+### `--script ftp-anon,ftp-syst`
+
+Executa scripts NSE do Nmap para obter informações sobre serviços FTP.
+
+| Script | Função |
+|---|---|
+| `ftp-anon` | Verifica se o servidor FTP permite conexões anônimas, sem autenticação com usuário e senha pessoais. |
+| `ftp-syst` | Executa o comando FTP `SYST` para obter informações sobre o sistema operacional informado pelo servidor. |
+
+**Exemplos:**
+
+```bash
+# Verifica se o FTP permite acesso anônimo:
+nmap -p 21 --script ftp-anon 192.168.1.100
+
+# Obtém informações sobre o sistema do servidor FTP:
+nmap -p 21 --script ftp-syst 192.168.1.100
+
+# Executa os dois scripts:
+nmap -p 21 --script ftp-anon,ftp-syst 192.168.1.100
+
+# Executa todos os scripts NSE cujo nome começa com ftp-:
+nmap -p 21 --script "ftp-*" 192.168.1.100
+```
+
+**Observações:**
+- `-p 21` limita a verificação à porta padrão do FTP.
+- `--script` define quais scripts NSE serão executados.
+- `ftp-anon` pode identificar se o acesso anônimo está habilitado e se permite listar arquivos.
+- `ftp-syst` depende das informações fornecidas pelo próprio servidor FTP.
 
 # 3. SMB — smbclient
 
