@@ -235,5 +235,14 @@ smbclient //192.168.1.100/shared -U usuario
 | smbclient | Acesso e gerenciamento de compartilhamentos SMB. |
 
 ---
+sugestões de leitura
+https://bellingcat.gitbook.io/toolkit
+
+https://osintframework.com/
+https://www.shodan.io/
+https://tools.parrotsec.org/
+https://www.kali.org/tools/
+https://www.metasploit.com/
+https://github.com/enaqx/awesome-pentest
 
 *README de estudos — Cybersecurity / Pentest.*
