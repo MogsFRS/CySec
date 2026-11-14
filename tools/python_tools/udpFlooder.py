@@ -10,7 +10,7 @@ except IndexError:
     print("""
 ______________________________________________________________________________
 something is missing!
-usage: python3 udpFlooder <ip> <port> --limit <limit>
+usage: python3 udpFlooder <ip> <port>
     """)
 
 
